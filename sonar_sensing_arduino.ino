@@ -98,5 +98,24 @@ void loop() // do the following things forever
   else{
     digitalWrite(LED_PROXIMITY,LOW);
   }
+  
 
+}
+
+
+
+
+//INPUT THE DURATION IN SECONDS//
+void timer(int duration){
+ int counter = 0;
+  
+  for(counter = 0 ; counter < duration ; counter++){
+  digitalWrite(LED_TIMER, HIGH);
+  delay(200);
+  digitalWrite(LED_TIMER,LOW);
+  delay(800);
+ }
+ 
+
+  
 }
