@@ -87,7 +87,7 @@ void timer(int duration){
  
   void distanceCheck(int distance){
       
-    if(DISTANCE_IN_CM >= distance){ // if the sonar is withing 20 cm, turn on PROXIMITY LED
+    if(DISTANCE_IN_CM <= distance){ // if the sonar is withing 20 cm, turn on PROXIMITY LED
     digitalWrite(LED_PROXIMITY, HIGH); // turn on led when it is in within proximity
   }
   else{
