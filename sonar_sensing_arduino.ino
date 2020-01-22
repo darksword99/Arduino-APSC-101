@@ -45,7 +45,11 @@
 
 NewPing sonar(TRIGGER_PIN, ECHO_PIN, MAX_DISTANCE); // initialize NewPing
 
+// Lights // 
 
+#define LED_PROXIMITY 1 
+
+#define LED_TIMER 2 
 
 void setup() //do the following things once
 
@@ -66,6 +70,10 @@ void setup() //do the following things once
 
   digitalWrite(VCC_PIN, HIGH) ; // tell pin 13 to output HIGH (+5V)
 
+  pinMode(LED_PROXIMITY, OUTPUT); // tell pin 1 it is going to be an output for the PROXIMITY LED
+  
+  pinMode(LED_TIMER, OUTPUT); // tell pin 2 it is going to be an output for the TIMER LED
+  
 }
 
 
@@ -84,5 +92,11 @@ void loop() // do the following things forever
 
   Serial.println("cm"); //print "cm" after that, then go to next line
 
+  if(DISTANCE_IN_CM >= 20){ // if the sonar is withing 20 cm, turn on PROXIMITY LED
+    digitalWrite(LED_PROXIMITY, HIGH);
+  }
+  else{
+    digitalWrite(LED_PROXIMITY,LOW);
+  }
 
 }
