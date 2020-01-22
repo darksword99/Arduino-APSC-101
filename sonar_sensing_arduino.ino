@@ -1,35 +1,3 @@
-// --------------------------------------------------------------------------------------
-
-// APSC 101-January 2020
-
-// Code for video Arduino 05
-
-// Video located at:   https://www.youtube.com/watch?v=_DDtwvWsmNo
-
-//
-
-// VERSION 2
-
-//
-
-// This program uses an ultrasonic distance sensor (sonar)
-
-// and shows its readings on the screen of an attached
-
-// computer, via the Arduino Serial Monitor.
-
-// IMPORTANT:  This Version 2 program uses the "NewPing" library, which can be installed
-
-// by selecting “Sketch → Include Library → Manage Library and then adding NewPing
-
-//  
-
-//  Instructions here:  https://www.ardu-badge.com/NewPing
-
-//
-
-// --------------------------------------------------------------------------------------
-
 
 #include <NewPing.h>   // include the NewPing library for this program
 
@@ -50,6 +18,12 @@ NewPing sonar(TRIGGER_PIN, ECHO_PIN, MAX_DISTANCE); // initialize NewPing
 #define LED_PROXIMITY 1 
 
 #define LED_TIMER 2 
+
+// DISTANCE DEFINITIONS // 
+
+#define DISTANCE_FOR_PROXIMITY_LED 15
+
+
 
 void setup() //do the following things once
 
@@ -91,14 +65,8 @@ void loop() // do the following things forever
   Serial.print(DISTANCE_IN_CM); //print the value of the variable next
 
   Serial.println("cm"); //print "cm" after that, then go to next line
-
-  if(DISTANCE_IN_CM >= 20){ // if the sonar is withing 20 cm, turn on PROXIMITY LED
-    digitalWrite(LED_PROXIMITY, HIGH);
-  }
-  else{
-    digitalWrite(LED_PROXIMITY,LOW);
-  }
   
+  distanceCheck(DISTANCE_FOR_PROXIMITY_LED);
 
 }
 
@@ -110,12 +78,22 @@ void timer(int duration){
  int counter = 0;
   
   for(counter = 0 ; counter < duration ; counter++){
-  digitalWrite(LED_TIMER, HIGH);
+  digitalWrite(LED_TIMER, HIGH); // Turns on the LED 
   delay(200);
-  digitalWrite(LED_TIMER,LOW);
+  digitalWrite(LED_TIMER,LOW); // Turns off the LED for a flicker effect 
   delay(800);
+  distanceCheck(DISTANCE_FOR_PROXIMITY_LED); // Checks if it's within the proximity distance
  }
  
+  void distanceCheck(int distance){
+      
+    if(DISTANCE_IN_CM >= distance){ // if the sonar is withing 20 cm, turn on PROXIMITY LED
+    digitalWrite(LED_PROXIMITY, HIGH); // turn on led when it is in within proximity
+  }
+  else{
+    digitalWrite(LED_PROXIMITY,LOW); // turn off the led when it's not within proximity
+  }
+}
 
   
 }
