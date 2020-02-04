@@ -27,7 +27,7 @@ NewPing sonar(TRIGGER_PIN, ECHO_PIN, MAX_DISTANCE); // initialize NewPing
 
 // DISTANCE DEFINITIONS // 
 
-#define DISTANCE_FOR_PROXIMITY_LED 30 // *******
+#define DISTANCE_FOR_PROXIMITY_LED 40 // *******
 
 
 // SAIFS WORK 
@@ -88,7 +88,7 @@ void loop() // do the following things forever
 {
  
   
-  delay(100); // wait for this number of milliseconds
+  delay(300); // wait for this number of milliseconds
 
   int DISTANCE_IN_CM = sonar.ping_cm(); // read the sonar sensor, using a variable
 
@@ -105,7 +105,7 @@ void loop() // do the following things forever
     digitalWrite(LED_PROXIMITY,LOW); // turn off the led when it's not within proximity
   }
 
-    if (DISTANCE_IN_CM <= THRESHOLD_DISTANCE && FLAG == 0 ) {
+    if (DISTANCE_IN_CM <= THRESHOLD_DISTANCE && FLAG == 0 && DISTANCE_IN_CM > 0) {
     timerUntilClose(3);
     myservo.write(360);
     Serial.print("active"); //print the word "open"
@@ -113,7 +113,7 @@ void loop() // do the following things forever
     timer(4);
     FLAG = 1;
     }
-    else if(DISTANCE_IN_CM <= THRESHOLD_DISTANCE && FLAG == 1){
+    else if(DISTANCE_IN_CM <= THRESHOLD_DISTANCE && FLAG == 1 && DISTANCE_IN_CM > 0){
     myservo.write(0); //goes back to original position
     Serial.print("deactivated");
     Serial.println("");
